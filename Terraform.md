@@ -1,60 +1,85 @@
-	1. Which components you have created using terraform?
-I have created resource group, security account, N/W security group, VMs using azure providers and Vmware providers.
+Sure, here's the provided text formatted nicely in Markdown:
 
-	2. How to do changes of already created resources in terraform?
-The terraform import command imports existing resources into Terraform.
-terraform import [options] ADDRESS ID
+---
 
-	3. When u run terraform , state file gets created, where u store that state file?
-State file maintains a state that maps the current status of  infra with config file.
-State file is stored either on the local machine or remote storage location like storage account in azure or S3 bucket in AWS cloud, we can also store it in TF cloud but by default it is stored in local machine named as terraform.tf state file.
-State file can contain sensitive info also, so it is recommended to store it on media that is encrypted.
+## Terraform FAQ
 
-	4. If u loose state file, how to resolve?
-Losing the Terraform state file can be problematic because it contains critical information about your infrastructure's current state and the relationships between resources. Without the state file, Terraform loses the ability to determine what resources it's managing and how they are configured. 
-Backups: If you have regular backups of your state file, you can restore it from a backup. This is why it's recommended to back up your state files in a safe and secure location.
+1. **Which components have you created using Terraform?**
+   I have created the following components using Terraform:
+   - Resource group
+   - Security account
+   - Network security group
+   - Virtual machines (VMs) using Azure providers and VMware providers.
 
-Recreate Infrastructure: If you have access to the configuration files used to create the resources, you can recreate the infrastructure by using those configuration files. However, Terraform will treat this as creating entirely new resources, which might lead to conflicts if the existing resources weren't manually destroyed.
+2. **How do you make changes to already created resources in Terraform?**
+   To make changes to already created resources in Terraform, you can use the `terraform import` command. This command imports existing resources into Terraform.
+   ```
+   terraform import [options] ADDRESS ID
+   ```
 
-Reimport Resources: If some of the resources are still available in your cloud environment, you might be able to import them back into Terraform's state. The terraform import command allows you to import existing resources into Terraform's management. This can be complex, as it requires manually matching resources in the cloud with the corresponding resource configurations in your Terraform configuration files.
+3. **Where is the state file stored when you run Terraform?**
+   The state file maintains a mapping between the current infrastructure state and the configuration file. The state file can be stored on:
+   - The local machine
+   - Remote storage locations like Azure Storage Account or AWS S3 bucket
+   - Terraform Cloud
+   By default, it is stored locally as `terraform.tfstate`. Since the state file can contain sensitive information, it's recommended to store it on encrypted media.
 
-Collaboration and Documentation: If you're working in a team, check if any of your team members have a copy of the state file. If not, gather information about the resources from cloud provider consoles, APIs, or other documentation. While this won't recover the state directly, it can help you recreate your infrastructure configuration more accurately.
+4. **What do you do if you lose the state file?**
+   Losing the Terraform state file can be problematic. To recover, you can consider these options:
+   - **Backups:** If you have backups of your state file, you can restore it from there.
+   - **Recreate Infrastructure:** If you have the configuration files, you can recreate the infrastructure.
+   - **Reimport Resources:** If resources still exist in your cloud environment, you can import them back into Terraform's state using `terraform import`.
+   - **Collaboration and Documentation:** Check if team members have the state file or gather information from cloud provider consoles or APIs.
+   - **Rebuilding and Testing:** As a last resort, recreate the infrastructure configuration from scratch.
 
-Rebuilding and Testing: In the worst-case scenario where the state is entirely lost and there are no backups or documentation available, you might need to start from scratch. This involves recreating your infrastructure configuration, testing thoroughly, and making sure the new resources match the desired state.
+5. **List some features of Terraform:**
+   - Supports multiple cloud providers like AWS, Azure, GCP, VMware
+   - Uses HCL (HashiCorp Configuration Language) for human-readable infrastructure code
+   - Provides a HashiCorp Configuration Language for easy code creation
 
+6. **What does the `terraform validate` command do?**
+   The `terraform validate` command checks the syntax of Terraform files in a directory and displays warnings and errors for invalid syntax.
 
-	4. List some features of terraform?
-It works on multiple cloud providers- like AWS, azure, GCP, Vmware
-Its uses HCL lang, which human readable, it help me to IAAC code quickly
-Hashi corp config lang
+7. **What are some common errors caught by `terraform validate`?**
+   Errors caught include syntax errors, unknown resources/providers, missing attributes, invalid argument names/IDs, and unused variables.
 
-	5. Terraform validate command - it is used to validate the syntax of tf file. Terraform performs a syntax check on all Terraform files in the directory specified and displays warnings and errors if any files contain invalid syntax.
-	6. Common errors catched by TF validate command- Syntax error, unknown resources or service providers, missing attributes, invalid arg name, invalid arg id, unused variable
+8. **What is Infrastructure as Code (IAC)?**
+   IAC enables building, changing, and managing infrastructure through code rather than manual processes.
 
-	7. IAC or Infrastructure as Code allows you to build, change, and manage your infrastructure through coding instead of manual processes.
-	8. Life cycle block- In Terraform, the lifecycle block is used to control how certain resources are managed over their lifecycle.
-	9. Common config settings- Create before destroy, prevent destroy, ignore update
-	10. Terraform vs. Ansible-
-	Business should choose according to their needs-
-	TF- can be used if we want to build infra from scratch, 
-	     declarative approach, 
-	     helps in maintaining steady state, without much intervention
-	Ansible- procedural approach, 
-	               config or manage infra evolving or changing over time.
-	Updating already configured env
-	
-	11. terraform Destroy- terraform destroy -target=resource_type.resource_name
-	12. How to store keys-> env variables, tf variables, secrect mgmt tools
-	13. Modules- 
-	  Root Module- Is the main directory that works with .tf files. It can have n number of choild or published modules.
-	Child module- Any module that can be called by another module (usually the Root module) is considered a child module.
-	Published Modules are modules pushed to a private or public repository.
-	
-	14. A remote backend in Terraform refers to an external storage and management system for storing the Terraform state file, which contains information about the current state of your infrastructure resources. Using a remote backend is a best practice in Terraform for several reasons, including collaboration, data persistence, and security. Remote backends provide a centralized and controlled way to manage and access the Terraform state.
-	15. Examples- Hashicorp tf cloud, AWS S3 , Azure storage, google cloud storage
-	16. How do we provide variables at the runtime?
-	Usually variables are stored in a file called var.tf, You can pass variables directly to the terraform command using the -var flag. Or by .tfvar file using -var-file flag to provide values
-	17. Can we manage tf code into multiple environments- yes by using tf workspace or usable modules
-	18. Cloud formation vs. TF- 
-	CF- YAML or JSON
-TF- HCL
+9. **What is the lifecycle block in Terraform?**
+   The lifecycle block controls how certain resources are managed throughout their lifecycle.
+
+10. **Terraform vs. Ansible:**
+    Choose based on needs:
+    - Terraform: For building infrastructure from scratch, maintaining steady state
+    - Ansible: For managing evolving/changing infrastructure, procedural approach
+
+11. **How to use `terraform destroy` targeting specific resources?**
+    You can use `terraform destroy -target=resource_type.resource_name`.
+
+12. **How can you store keys?**
+    Keys can be stored in environment variables, Terraform variables, or secret management tools.
+
+13. **Explain Modules:**
+    - **Root Module:** The main directory with .tf files. Can include child or published modules.
+    - **Child Module:** Called by another module (usually the Root module).
+    - **Published Modules:** Pushed to private/public repository.
+
+14. **What is a remote backend in Terraform?**
+    A remote backend stores the Terraform state file externally, promoting collaboration, data persistence, and security.
+
+15. **Examples of remote backends:**
+    HashiCorp Terraform Cloud, AWS S3, Azure Storage, Google Cloud Storage.
+
+16. **How do you provide variables at runtime?**
+    Variables are stored in `var.tf`. Pass them with `-var` flag or use `-var-file` flag to provide values from a `.tfvar` file.
+
+17. **Can you manage Terraform code across multiple environments?**
+    Yes, by using Terraform workspaces or reusable modules.
+
+18. **CloudFormation vs. Terraform:**
+    - CloudFormation: YAML/JSON
+    - Terraform: HCL
+
+---
+
