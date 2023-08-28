@@ -1,6 +1,4 @@
-Sure, here's the provided text formatted nicely in Markdown:
 
----
 
 ## Terraform FAQ
 
